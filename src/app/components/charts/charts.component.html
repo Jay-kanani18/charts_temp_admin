@@ -1,0 +1,298 @@
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
+    <h5 class="mb-0">Kanban Board</h5>
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item gray-color">Projects</li>
+        <li class="breadcrumb-item fw-semibold">Kanban Board</li>
+    </ol>
+</div>
+>
+
+<div class="row" [class.component-rtl-enabled]="themeService.isRTLEnabled()">
+
+    <div class="col-lg-3 col-md-3 col-xl-3 col-xxl-3">
+        <ng-scrollbar visibility="hover" style="height: 70vh;">
+
+        <mat-card class="mb-25 position-relative tagus-card">
+            <mat-card-header>
+                <div class="text-center ">
+
+                    <h3 class="mb-0 ">for whom?</h3>
+                </div>
+                <button type="button" mat-button class="position-relative dot-btn p-0 border-none"
+                    [matMenuTriggerFor]="monthMenu">
+                    <i class="ri-more-fill"></i>
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before">
+                    <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                        (click)="onAddnewforwhom()">
+                        Add new
+                    </button>
+                    <button disabled mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                        Add existing
+                    </button>
+              
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-content class="">
+
+
+                <form class="tagus-search-box animate__animated animate__zoomIn  animate__faster " *ngIf="is_add_forwhom">
+                    <input type="text" class="input-search" placeholder="Name" id="forwhom-name">
+                    <button class="tagus " mat-flat-button (click)="addForWhom()">Add</button>
+                </form>
+                <div class="error"  role="alert" *ngIf="dup_whom">
+                    *name already exists!
+                  </div>
+             
+                     
+
+                <div class="kanban-item bg-gray border-radius p-20  mt-3" *ngFor="let catagory of for_whom_list;let i=index"   [ngClass]="{'bg-purple': i== forwhom_selected_index}" (click)="onSelectforwhom(i)" >
+                    <div  *ngIf="edit_index_forwhom != i" class="d-flex mb-2 align-items-center justify-content-space-between">
+                        <!-- <mat-checkbox class="minus-margin"></mat-checkbox> -->
+                
+                        <h5  class="mb-8 fw-semibold">{{catagory['name']}}</h5>
+
+
+                        <button type="button" mat-button class="position-relative dot-btn p-0 border-none"
+                            [matMenuTriggerFor]="editMenu">
+                            <i class="ri-more-2-fill"></i>
+                        </button>
+                        <mat-menu #editMenu="matMenu" class="monthMenu" xPosition="before">
+                            <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                                (click)="oneditForwhom(i)">
+                                Edit
+                            </button>
+                            <button mat-menu-item type="button" class="bg-transparent border-none position-relative" (click)="onRemoveforwhom(catagory['_id'])">
+                                Remove
+                            </button>
+                        </mat-menu>
+
+                   
+                    </div>
+                 
+
+                    <span *ngIf="edit_index_forwhom != i" class="muted-color fw-medium">{{catagory['for_what_Array'].length }} items</span>
+        
+                    <div  *ngIf="edit_index_forwhom == i" class="d-flex flex-column" >
+                        <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Ex. Admin" id="forwhomeditValue" value="{{catagory['name']}}">
+
+                        </mat-form-field>
+                        <div class="error"  role="alert" *ngIf="dup_whom_edit">
+                            *name already exists!
+                          </div>
+        
+                        
+                        
+                        <div class="d-flex">
+                        <button mat-flat-button color="primary" class="w-50 m-2" (click)="onSaveforwhom(catagory['_id'])">Save</button>
+                        <button mat-raised-button color="warn" class="w-50 m-2" (click)="onCancelforwhom()">Cancel</button>
+
+                        </div>
+                        <!-- <button mat-icon-button matSuffix color="primary" >save</button> -->
+
+                    </div>
+                </div>
+
+                <div *ngIf="for_whom_list.length<=0"
+                    class="d-flex flex-column align-items-center justify-content-center mt-5 m-5">
+                    Data not found
+
+                </div>
+
+
+            </mat-card-content>
+        </mat-card>
+        </ng-scrollbar>
+
+
+    </div>
+    <div class="col-lg-3 col-md-3 col-xl-3 col-xxl-3">
+        <ng-scrollbar visibility="hover" style="height: 70vh;">
+
+        <mat-card class="mb-25 position-relative tagus-card" >
+            <mat-card-header>
+                <div class="text-center ">
+
+                    <h3 class="mb-0 ">for what?</h3>
+                </div>
+                <button type="button" mat-button class="position-relative dot-btn p-0 border-none"
+                    [matMenuTriggerFor]="monthMenu2">
+                    <i class="ri-more-fill"></i>
+                </button>
+                <mat-menu #monthMenu2="matMenu" class="monthMenu" xPosition="before">
+                    <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                        (click)="onAddnewforwhat()">
+                        Add new
+                    </button>
+                    <button disabled mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                        Add existing
+                    </button>
+        
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-content class="">
+
+
+                <form class="tagus-search-box animate__animated animate__zoomIn  animate__faster " *ngIf="is_add_forwhat">
+                    <input type="text" class="input-search" placeholder="Name" id="forwhat-name">
+                    <button class="tagus " mat-flat-button (click)="addForWhat()">Add</button>
+                </form>
+                <div class="error"  role="alert" *ngIf="dup_what">
+                  *name already exists!
+                </div>
+
+                <div class="kanban-item bg-gray border-radius p-20  mt-3 animate__animated animate__fadeIn animate__fast" *ngFor="let subcatagory of for_what_list;let i=index" [ngClass]="{'bg-purple': i== forwhat_selected_index}" (click)="onSelectforwhat(i)" >
+                    <div  *ngIf="edit_index_forwhat != i" class="d-flex mb-2 align-items-center justify-content-space-between">
+                        <!-- <mat-checkbox class="minus-margin"></mat-checkbox> -->
+                
+                        <h5  class="mb-8 fw-semibold">{{subcatagory['name']}}</h5>
+
+
+                        <button type="button" mat-button class="position-relative dot-btn p-0 border-none"
+                            [matMenuTriggerFor]="editMenu">
+                            <i class="ri-more-2-fill"></i>
+                        </button>
+                        <mat-menu #editMenu="matMenu" class="monthMenu" xPosition="before">
+                            <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                                (click)="oneditForwhat(i)">
+                                Edit
+                            </button>
+                            <button mat-menu-item type="button" class="bg-transparent border-none position-relative" (click)="onRemoveforwhat(subcatagory['_id'])">
+                                Remove
+                            </button>
+                        </mat-menu>
+
+                   
+                    </div>
+
+                    <span *ngIf="edit_index_forwhat != i" class="muted-color fw-medium">{{subcatagory['charts'].length}} items</span>
+        
+                    <div  *ngIf="edit_index_forwhat == i" class="d-flex flex-column" >
+                        <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Ex. Admin" id="forwhateditValue" value="{{subcatagory['name']}}">
+                        </mat-form-field>
+                        <div class="error"  role="alert" *ngIf="dup_whom_edit">
+                            *name already exists!
+                          </div>
+
+                        
+                        
+                        <div class="d-flex">
+                        <button mat-flat-button color="primary" class="w-50 m-2" (click)="onSaveforwhat(subcatagory['_id'])">Save</button>
+                        <button mat-raised-button color="warn" class="w-50 m-2" (click)="onCancelforwhat()">Cancel</button>
+
+                        </div>
+                        <!-- <button mat-icon-button matSuffix color="primary" >save</button> -->
+
+                    </div>
+                </div>
+
+                <div *ngIf="for_what_list.length<=0"
+                    class="d-flex flex-column align-items-center justify-content-center mt-5 m-5">
+                    Data not found
+
+                </div>
+
+
+            </mat-card-content>
+        </mat-card>
+        </ng-scrollbar>
+
+
+    </div>
+
+
+    <div class="col-lg-6 col-md-6 col-xl-6 col-xxl-6">
+        <ng-scrollbar visibility="hover" style="height: 70vh;">
+
+        <mat-card class="mb-25 position-relative tagus-card" >
+            <mat-card-header>
+                <div class="text-center ">
+
+                    <h3 class="mb-0 ">Charts</h3>
+                </div>
+                <button type="button" mat-button class="position-relative dot-btn p-0 border-none"
+                    [matMenuTriggerFor]="monthMenu3">
+                    <i class="ri-more-fill"></i>
+                </button>
+                <mat-menu #monthMenu3="matMenu" class="monthMenu" xPosition="before">
+                    <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                      [routerLink]="['/create-chart',forwhat_selected_id]">
+                        Add new
+                    </button>
+                    <button disabled mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                        Add existing
+                    </button>
+             
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-content class="">
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 animate__animated animate__fadeIn animate__fast"  *ngFor="let chart of charts_list;let i = index">
+                        <mat-card class="mb-25 tagus-card">
+                            <mat-card-header class="border-bottom">
+                                <!-- <img *ngIf="chart.chart_type != 0" src="assets/img/cards/card8.jpg" alt="card" class="border-radius"> -->
+                                <img *ngIf="chart.chart_type == 0" src="assets/img/pie-chart.png" alt="card" class="border-radius">
+                                <img *ngIf="chart.chart_type == 1" src="assets/img/pie-chart (1).png" alt="card" class="border-radius">
+                            </mat-card-header>
+                            <mat-card-content>
+                                <h5 class="mb-0">{{chart.name}}</h5>
+                               
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                 
+                </div>
+
+                <!-- <div class="kanban-item bg-gray border-radius p-20  mt-3" *ngFor="let chart of charts;let i=index"  (click)="onClickchart()" >
+                    <div   class="d-flex mb-2 align-items-center justify-content-space-between">
+                
+                        <h5  class="mb-8 fw-semibold">{{chart['name']}}</h5>
+
+
+                        <button type="button" mat-button class="position-relative dot-btn p-0 border-none"
+                            [matMenuTriggerFor]="editMenu">
+                            <i class="ri-more-2-fill"></i>
+                        </button>
+                        <mat-menu #editMenu="matMenu" class="monthMenu" xPosition="before">
+                            <button mat-menu-item type="button" class="bg-transparent border-none position-relative"
+                                (click)="oneditChart(i)">
+                                Edit
+                            </button>
+                            <button mat-menu-item type="button" class="bg-transparent border-none position-relative" (click)="onRemoveChart(chart['_id'])">
+                                Remove
+                            </button>
+                        </mat-menu>
+
+                   
+                    </div>
+
+                    <span *class="muted-color fw-medium">{{chart['for_what_Array']}} items</span>
+        
+                   
+                </div> -->
+
+                <div *ngIf="charts_list.length<=0"
+                    class="d-flex flex-column align-items-center justify-content-center mt-5 m-5">
+                    Charts not found
+
+                </div>
+
+
+            </mat-card-content>
+        </mat-card>
+        </ng-scrollbar>
+
+    </div>
+
+</div>

@@ -1,0 +1,92 @@
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
+    <!-- <h5 class="mb-0">Create Project</h5> -->
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item gray-color">Charts</li>
+        <li class="breadcrumb-item fw-semibold">Create Chart</li>
+    </ol>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-md-12">
+        <mat-card class="mb-25 create-project-card tagus-card">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Create Chart</h5>
+            </mat-card-header>
+            <mat-card-content>
+                <form>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <!-- <label class="d-block mb-12 fw-semibold gray-color">Product Name</label> -->
+                            <mat-form-field appearance="fill">
+                                <i class="ri-edit-2-line"></i>
+                                <mat-label>Charts's Name</mat-label>
+                                <input matInput id="name">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <label class="d-block mb-12 fw-semibold gray-color">Chart Type</label>
+                            <form>
+                                <button mat-button matTooltip="This is a tooltip"></button>
+
+                                <!-- <label class="d-block mb-12 fw-semibold gray-color">Priority</label> -->
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Chart type</mat-label>
+                                    <i class="ri-pie-chart-2-fill"></i>
+                                    <mat-select class="d-flex align-items-center justify-content-center select" [(ngModel)]="chart_type" id="chart_type" (selectionChange)="OnChange($event)"  [ngModelOptions]="{standalone: true}">
+                                        <mat-option value="0"> <img src="../../../../assets/img/bar-chart.png" width="5%" alt="icon">  &nbsp;&nbsp;&nbsp; Bar chart</mat-option>
+                                        <mat-option value="1" > <img  src="../../../../assets/img/pie-chart (1).png" width="5%" alt="icon">  &nbsp;&nbsp;&nbsp; Donut Chart</mat-option>
+                                        <mat-option value="2" > <img  src="../../../../assets/img/pie-chart.png" width="5%" alt="icon"> &nbsp;&nbsp;&nbsp; Pie Chart</mat-option>
+                                    </mat-select>
+                                </mat-form-field>            
+                            </form>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <!-- <label class="d-block mb-12 fw-semibold gray-color">Chart Width</label> -->
+                            <form>
+                                <button mat-button matTooltip="This is a tooltip"></button>
+
+                                <!-- <label class="d-block mb-12 fw-semibold gray-color">Priority</label> -->
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Chart Width</mat-label>
+                                    <i class="ri-pie-chart-2-fill"></i>
+                                    <mat-select class="d-flex align-items-center justify-content-center select" >
+                                        <mat-option value="0"> Small </mat-option>
+                                        <mat-option value="1" >Medium </mat-option>
+                                        <mat-option value="2" > Large</mat-option>
+                                        <mat-option value="2" > Extra Large</mat-option>
+                                    </mat-select>
+                                </mat-form-field>            
+                            </form>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="tagus-form-group custom-style">
+                                <mat-form-field appearance="fill">
+                                    <i class="ri-code-line"></i>
+
+                                    <mat-label>Chart Query</mat-label>
+                                    <input matInput id="query">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                  
+
+
+
+                    </div>
+                    <button mat-button type="submit" class="default-btn mt-25" (click)="add_charts()">
+                        Create Chart
+                    </button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+ 
+</div>
