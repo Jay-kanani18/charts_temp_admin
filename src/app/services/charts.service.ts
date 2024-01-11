@@ -15,8 +15,8 @@ export class ChartsService {
 
 
   get_for_whom(id:any){
-    return this.http.get(
-      `${environment.URL}/get_for_whom?id=${id}`
+    return this.http.post(
+      `${environment.URL}/get_for_whom?id=${id}`,{}
     );
   }
   add_for_whom(data:any,id:any){
@@ -25,8 +25,8 @@ export class ChartsService {
     );
   }
   get_for_what(id:any){
-    return this.http.get(
-      `${environment.URL}/get_for_what?id=${id}`
+    return this.http.post(
+      `${environment.URL}/get_for_what?id=${id}`,{}
     );
   }
   add_for_what(data:any,id:any){
@@ -36,7 +36,7 @@ export class ChartsService {
     }
   get_charts(id:any){
     return this.http.get(
-      `${environment.URL}/get_charts?id=${id}`
+      `${environment.URL}/get_charts?id=${id}`,
     );
   }
   add_charts(id:any,data:any){
